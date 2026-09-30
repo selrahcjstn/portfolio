@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background-primary: #F7F7F5;
+  --color-background-pure: #FFFFFF;
+  --color-background-inverse: #111111;
+
+  --color-foreground-primary: #111111;
+  --color-foreground-secondary: #5C5C58;
+  --color-foreground-muted: #92928C;
+  --color-foreground-inverse: #F7F7F5;
+
+  --color-border-default: #DEDEDA;
+  --color-border-strong: #AFAFAA;
+  --color-border-inverse: #333333;
+
+  --color-interactive-primary: #111111;
+  --color-interactive-hover: #292929;
+  --color-interactive-inverse: #F7F7F5;
+}
+
+body {
+  background: var(--color-background-primary);
+  color: var(--color-foreground-primary);
+}
