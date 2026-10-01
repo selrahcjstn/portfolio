@@ -9,11 +9,47 @@ export const profile = {
 
 export const email = 'charlesjustinemantes.main@gmail.com';
 
+export const techStack = [
+  {
+    category: 'Frontend & mobile',
+    technologies: [
+      { name: 'JavaScript', icon: 'JAVASCRIPT' },
+      { name: 'React', icon: 'REACT.JS' },
+      { name: 'Vue', icon: 'VUE.JS' },
+      { name: 'React Native', icon: 'REACT NATIVE' },
+    ],
+  },
+  {
+    category: 'Backend',
+    technologies: [
+      { name: 'ASP.NET Core', icon: 'ASP.NET CORE' },
+      { name: 'Python', icon: 'PYTHON' },
+      { name: 'PHP', icon: 'PHP' },
+      { name: 'Java', icon: 'JAVA' },
+    ],
+  },
+  {
+    category: 'Data & services',
+    technologies: [
+      { name: 'Supabase', icon: 'SUPABASE' },
+      { name: 'Firebase', icon: 'FIREBASE' },
+    ],
+  },
+  {
+    category: 'Game development',
+    technologies: [
+      { name: 'Unity', icon: 'UNITY' },
+      { name: 'C#', icon: 'C#' },
+    ],
+  },
+];
+
 export const navigation: NavigationSection[] = [
   { id: 'about', label: 'About', number: '01' },
-  { id: 'education', label: 'Education', number: '02' },
-  { id: 'projects', label: 'Projects', number: '03' },
-  { id: 'contact', label: 'Contact', number: '04' },
+  { id: 'tech-stack', label: 'Tech stack', number: '02' },
+  { id: 'education', label: 'Education', number: '03' },
+  { id: 'projects', label: 'Projects', number: '04' },
+  { id: 'contact', label: 'Contact', number: '05' },
 ];
 
 export const education: EducationEntry[] = [

@@ -17,16 +17,17 @@ src/
 │   └── ui/
 │       └── TechnologyTags.astro    # Shared technology badges
 ├── data/
-│   └── portfolio.ts               # Profile, email, navigation, education, projects
+│   └── portfolio.ts               # Profile, email, navigation, tech stack, education, projects
 ├── layout/
 │   └── PortfolioLayout.astro      # Document metadata and two-column page shell
 ├── lib/
 │   ├── devicons.ts                # Technology-to-icon mapping
 │   └── portfolio-navigation.ts    # Scroll tracking and header visibility
 ├── pages/
-│   └── index.astro                # Composes the layout and four sections
+│   └── index.astro                # Composes the layout and five sections
 ├── sections/
 │   ├── About.astro
+│   ├── TechStack.astro
 │   ├── Education.astro
 │   ├── Projects.astro
 │   └── Contact.astro              # Contact markup, form and copy-email behavior
@@ -42,6 +43,8 @@ public/
 
 - Edit portfolio entries and navigation in `src/data/portfolio.ts`.
 - Edit About prose in `src/sections/About.astro` to preserve its inline emphasis.
+- Edit the standalone Tech stack section in `src/sections/TechStack.astro` and
+  its categories in `src/data/portfolio.ts`.
 - Edit individual sections or components without expanding `src/pages/index.astro`.
 - Keep shared visual tokens and responsive styles in `src/styles/global.css`.
 - Keep menu and contact interactions beside their markup. The layout loads the

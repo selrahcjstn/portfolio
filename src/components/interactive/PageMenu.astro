@@ -1,22 +1,66 @@
 ---
-import { MenuIcon } from '@lucide/astro';
+import { MenuIcon, XIcon } from '@lucide/astro';
 import { navigation } from '../../data/portfolio';
 ---
 
 <details class="header-menu">
   <summary class="menu-action" aria-label="Page navigation"><MenuIcon size={20} strokeWidth={1.6} aria-hidden="true" /></summary>
-  <nav class="menu-popover" aria-label="Quick navigation">
-    {navigation.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
-  </nav>
+  <dialog class="menu-overlay" aria-label="Page navigation">
+    <button class="menu-close" type="button" aria-label="Close navigation"><XIcon size={24} strokeWidth={1.6} aria-hidden="true" /></button>
+    <nav class="menu-overlay-nav" aria-label="Portfolio sections">
+      {navigation.map((section) => (
+        <a class="menu-overlay-link" href={`#${section.id}`} data-section={section.id}>
+          <span>{section.label}</span>
+        </a>
+      ))}
+    </nav>
+  </dialog>
 </details>
 
 <script>
   const headerMenu = document.querySelector<HTMLDetailsElement>('.header-menu');
-  headerMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => { headerMenu.open = false; });
+  const menuOverlay = headerMenu?.querySelector<HTMLDialogElement>('.menu-overlay');
+  const menuClose = headerMenu?.querySelector<HTMLButtonElement>('.menu-close');
+  const menuLinks = Array.from(headerMenu?.querySelectorAll<HTMLAnchorElement>('.menu-overlay-link') ?? []);
+
+  const updateMenuSelection = () => {
+    const activeSection = document.querySelector<HTMLAnchorElement>('.section-nav-item.active')?.hash.slice(1) ?? 'about';
+    for (const link of menuLinks) {
+      const active = link.dataset.section === activeSection;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+  };
+
+  headerMenu?.addEventListener('toggle', () => {
+    updateMenuSelection();
+    document.documentElement.classList.toggle('menu-open', Boolean(headerMenu?.open));
+    if (headerMenu?.open) {
+      if (menuOverlay && !menuOverlay.open) menuOverlay.showModal();
+      menuClose?.focus();
+    } else if (menuOverlay?.open) {
+      menuOverlay.close();
+    }
+  });
+  menuOverlay?.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    if (headerMenu) headerMenu.open = false;
+    headerMenu?.querySelector<HTMLElement>('summary')?.focus();
+  });
+  menuOverlay?.addEventListener('click', (event) => {
+    if (event.target === menuOverlay && headerMenu) headerMenu.open = false;
+  });
+  menuClose?.addEventListener('click', () => {
+    if (headerMenu) headerMenu.open = false;
+    headerMenu?.querySelector<HTMLElement>('summary')?.focus();
+  });
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', () => { if (headerMenu) headerMenu.open = false; });
   });
   document.addEventListener('click', (event) => {
-    if (headerMenu && event.target instanceof Node && !headerMenu.contains(event.target)) headerMenu.open = false;
+    if (headerMenu && event.target === headerMenu.querySelector('.menu-overlay')) headerMenu.open = false;
+    else if (headerMenu && event.target instanceof Node && !headerMenu.contains(event.target)) headerMenu.open = false;
   });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && headerMenu?.open) {

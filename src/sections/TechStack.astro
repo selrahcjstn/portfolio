@@ -1,0 +1,23 @@
+---
+import { deviconClasses } from '../lib/devicons';
+import { techStack } from '../data/portfolio';
+---
+
+<section class="tech-stack" id="tech-stack" aria-labelledby="tech-stack-heading">
+  <h2 class="section-label" id="tech-stack-heading">02. TECH STACK</h2>
+  <div class="tech-stack-groups">
+    {techStack.map((group) => (
+      <div class="tech-stack-group">
+        <h3>{group.category}</h3>
+        <ul aria-label={group.category}>
+          {group.technologies.map((technology) => (
+            <li>
+              <i class:list={['devicon', deviconClasses[technology.icon]]} aria-hidden="true"></i>
+              <span>{technology.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
