@@ -1,40 +1,14 @@
 ---
-import { CopyIcon, SendIcon } from '@lucide/astro';
-import { email } from '../data/portfolio';
+import ContactForm from '../components/interactive/ContactForm.astro';
+import EmailContact from '../components/interactive/EmailContact.astro';
 ---
 
 <section class="contact-section" id="contact" aria-labelledby="contact-heading">
   <h2 class="section-label" id="contact-heading">05. CONTACT</h2>
-  <form class="contact-form">
-    <label class="sr-only" for="inquiry-type">Inquiry type</label>
-    <select id="inquiry-type" name="inquiry-type"><option value="" selected disabled>Select an option</option><option value="collaboration">Collaboration</option><option value="internship">Internship opportunity</option><option value="project">Project inquiry</option></select>
-    <div class="form-row">
-      <div><label class="sr-only" for="name">Name</label><input id="name" name="name" type="text" placeholder="Juan Dela Cruz" /></div>
-      <div><label class="sr-only" for="email">Email</label><input id="email" name="email" type="email" placeholder="you@company.com" /></div>
-    </div>
-    <label class="sr-only" for="message">Message</label>
-    <textarea id="message" name="message" minlength="20" placeholder="Share the goal audience, proposed format, timing and what a successful collaboration looks like."></textarea>
-    <p class="form-note">At least 20 characters. Include dates or deadlines if your inquiry is time-sensitive.</p>
-    <button type="submit"><SendIcon size={16} strokeWidth={1.6} aria-hidden="true" /><span>Send Inquiry</span></button>
-  </form>
-
-  <div class="email-option">
-    <div class="email-heading"><span class="accent-dot" aria-hidden="true"></span><h3>Prefer email instead?</h3></div>
-    <div class="email-card">
-      <span>{email}</span>
-      <button class="copy-button" type="button" data-copy-email aria-label="Copy email address"><CopyIcon size={18} strokeWidth={1.6} aria-hidden="true" /></button>
-    </div>
+  <div class="contact-intro">
+    <h3>Let’s build something together.</h3>
+    <p>Have an internship opportunity or a project in mind? Share a few details below, or reach out by email.</p>
   </div>
+  <ContactForm />
+  <EmailContact />
 </section>
-
-<script>
-  import { email } from '../data/portfolio';
-
-  document.querySelector('.contact-form')?.addEventListener('submit', (event) => event.preventDefault());
-  const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-email]');
-  copyButton?.addEventListener('click', async () => {
-    await navigator.clipboard.writeText(email);
-    copyButton.setAttribute('aria-label', 'Email address copied');
-  });
-
-</script>

@@ -1,0 +1,35 @@
+---
+import { CopyIcon, MailIcon } from '@lucide/astro';
+import { email } from '../../data/portfolio';
+---
+
+<div class="email-option">
+  <h3 class="email-label">Prefer email?</h3>
+  <div class="email-card">
+    <MailIcon size={16} strokeWidth={1.6} aria-hidden="true" />
+    <a href={`mailto:${email}`}>{email}</a>
+    <button class="copy-button" type="button" data-copy-email aria-label="Copy email address">
+      <CopyIcon size={14} strokeWidth={1.6} aria-hidden="true" />
+      <span data-copy-label>Copy</span>
+    </button>
+  </div>
+  <p class="email-copy-status sr-only" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+  import { email } from '../../data/portfolio';
+
+  const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-email]');
+  const copyLabel = copyButton?.querySelector<HTMLElement>('[data-copy-label]');
+  const copyStatus = document.querySelector<HTMLElement>('.email-copy-status');
+  copyButton?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      if (copyLabel) copyLabel.textContent = 'Copied';
+      copyButton.setAttribute('aria-label', 'Email address copied');
+      if (copyStatus) copyStatus.textContent = 'Email address copied.';
+    } catch {
+      if (copyStatus) copyStatus.textContent = 'Could not copy. Select the email address to open your email app.';
+    }
+  });
+</script>

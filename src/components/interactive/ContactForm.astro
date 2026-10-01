@@ -1,0 +1,138 @@
+---
+import { ChevronDownIcon, SendIcon } from '@lucide/astro';
+---
+
+<form class="contact-form">
+  <div class="contact-field">
+    <label id="inquiry-label" for="inquiry-type-trigger">What can I help with?</label>
+    <div class="select-control">
+      <input type="hidden" id="inquiry-type" name="inquiry-type" value="" />
+      <button
+        class="inquiry-trigger"
+        id="inquiry-type-trigger"
+        type="button"
+        role="combobox"
+        aria-labelledby="inquiry-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="inquiry-options"
+      >
+        <span class="inquiry-value" data-placeholder="true">Select an inquiry type</span>
+        <ChevronDownIcon size={16} strokeWidth={1.6} aria-hidden="true" />
+      </button>
+      <div class="inquiry-options" id="inquiry-options" role="listbox" aria-labelledby="inquiry-label" hidden>
+        <div class="inquiry-option" id="inquiry-option-collaboration" role="option" aria-selected="false" data-value="collaboration">Collaboration</div>
+        <div class="inquiry-option" id="inquiry-option-internship" role="option" aria-selected="false" data-value="internship">Internship opportunity</div>
+        <div class="inquiry-option" id="inquiry-option-project" role="option" aria-selected="false" data-value="project">Project inquiry</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="contact-field">
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" autocomplete="name" placeholder="Juan Dela Cruz" />
+    </div>
+    <div class="contact-field">
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" />
+    </div>
+  </div>
+  <div class="contact-field message-field">
+    <label for="message">Your message</label>
+    <textarea id="message" name="message" minlength="20" aria-describedby="message-hint" placeholder="Tell me about the opportunity, your idea, or what you’d like to build together."></textarea>
+    <p class="form-note" id="message-hint">At least 20 characters. Feel free to include a timeline or any helpful details.</p>
+  </div>
+  <button type="submit"><SendIcon size={14} strokeWidth={1.6} aria-hidden="true" /><span>Send inquiry</span></button>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
+    const trigger = form.querySelector<HTMLButtonElement>('.inquiry-trigger');
+    const valueField = form.querySelector<HTMLInputElement>('#inquiry-type');
+    const valueLabel = form.querySelector<HTMLElement>('.inquiry-value');
+    const listbox = form.querySelector<HTMLElement>('.inquiry-options');
+    const options = Array.from(form.querySelectorAll<HTMLElement>('.inquiry-option'));
+    let activeIndex = -1;
+
+    if (!trigger || !valueField || !valueLabel || !listbox) return;
+
+    const setActive = (index: number) => {
+      activeIndex = (index + options.length) % options.length;
+      options.forEach((option, optionIndex) => option.classList.toggle('is-active', optionIndex === activeIndex));
+      trigger.setAttribute('aria-activedescendant', options[activeIndex].id);
+      options[activeIndex].scrollIntoView({ block: 'nearest' });
+    };
+
+    const close = (restoreFocus = false) => {
+      listbox.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.removeAttribute('aria-activedescendant');
+      options.forEach((option) => option.classList.remove('is-active'));
+      if (restoreFocus) trigger.focus();
+    };
+
+    const open = () => {
+      listbox.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      const selectedIndex = options.findIndex((option) => option.dataset.value === valueField.value);
+      setActive(selectedIndex >= 0 ? selectedIndex : 0);
+    };
+
+    const choose = (option: HTMLElement) => {
+      valueField.value = option.dataset.value ?? '';
+      valueLabel.textContent = option.textContent?.trim() ?? '';
+      valueLabel.removeAttribute('data-placeholder');
+      options.forEach((item) => item.setAttribute('aria-selected', String(item === option)));
+      valueField.dispatchEvent(new Event('change', { bubbles: true }));
+      close(true);
+    };
+
+    trigger.addEventListener('click', () => {
+      if (listbox.hidden) open();
+      else close();
+    });
+
+    trigger.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (listbox.hidden) open();
+        else setActive(activeIndex + (event.key === 'ArrowDown' ? 1 : -1));
+      } else if (event.key === 'Home' && !listbox.hidden) {
+        event.preventDefault();
+        setActive(0);
+      } else if (event.key === 'End' && !listbox.hidden) {
+        event.preventDefault();
+        setActive(options.length - 1);
+      } else if ((event.key === 'Enter' || event.key === ' ') && !listbox.hidden) {
+        event.preventDefault();
+        if (options[activeIndex]) choose(options[activeIndex]);
+      } else if (event.key === 'Escape' && !listbox.hidden) {
+        event.preventDefault();
+        close();
+      }
+    });
+
+    trigger.addEventListener('focusout', (event) => {
+      if (!trigger.parentElement?.contains(event.relatedTarget as Node | null)) close();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener('pointermove', () => setActive(options.indexOf(option)));
+      option.addEventListener('click', () => choose(option));
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!form.contains(event.target as Node)) close();
+    });
+
+    form.addEventListener('reset', () => {
+      valueField.value = '';
+      valueLabel.textContent = 'Select an inquiry type';
+      valueLabel.setAttribute('data-placeholder', 'true');
+      options.forEach((option) => option.setAttribute('aria-selected', 'false'));
+      close();
+    });
+
+    form.addEventListener('submit', (event) => event.preventDefault());
+  });
+</script>

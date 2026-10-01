@@ -9,9 +9,12 @@ and Devicon technology logos.
 src/
 ├── components/
 │   ├── interactive/
+│   │   ├── ContactForm.astro        # Labeled inquiry form
+│   │   ├── EmailContact.astro       # Email link and copy feedback
 │   │   └── PageMenu.astro           # Header menu and its open/close behavior
 │   ├── layout/
 │   │   ├── Navbar.astro            # Brand and header actions
+│   │   ├── PortfolioCredit.astro   # Site credit below Contact
 │   │   ├── ProfileSidebar.astro    # Profile, section navigation, social links
 │   │   └── SectionNavigation.astro # Navigation from shared section data
 │   └── ui/
@@ -30,7 +33,7 @@ src/
 │   ├── TechStack.astro
 │   ├── Education.astro
 │   ├── Projects.astro
-│   └── Contact.astro              # Contact markup, form and copy-email behavior
+│   └── Contact.astro              # Contact introduction and component composition
 ├── styles/
 │   └── global.css                 # Shared tokens, styles, responsive rules, animations
 └── types/
