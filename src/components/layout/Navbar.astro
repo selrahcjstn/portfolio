@@ -1,0 +1,14 @@
+---
+import { MessageSquareIcon } from '@lucide/astro';
+import PageMenu from '../interactive/PageMenu.astro';
+import { profile } from '../../data/portfolio';
+---
+
+<header class="site-header">
+  <a class="brand" href="#about" aria-label={`${profile.name}, home`}>{profile.initials}</a>
+  <nav class="header-actions" aria-label="Primary navigation">
+    <a class="outline-action" href="#contact" aria-label="Message Charles"><MessageSquareIcon size={14} strokeWidth={1.6} aria-hidden="true" /><span>MESSAGE</span></a>
+    <a class="outline-action github-action" href="#projects" aria-label="GitHub projects"><i class="devicon devicon-github-plain" aria-hidden="true"></i><span>GITHUB</span></a>
+    <PageMenu />
+  </nav>
+</header>

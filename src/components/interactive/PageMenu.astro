@@ -1,0 +1,28 @@
+---
+import { MenuIcon } from '@lucide/astro';
+import { navigation } from '../../data/portfolio';
+---
+
+<details class="header-menu">
+  <summary class="menu-action" aria-label="Page navigation"><MenuIcon size={20} strokeWidth={1.6} aria-hidden="true" /></summary>
+  <nav class="menu-popover" aria-label="Quick navigation">
+    {navigation.map((section) => <a href={`#${section.id}`}>{section.label}</a>)}
+  </nav>
+</details>
+
+<script>
+  const headerMenu = document.querySelector<HTMLDetailsElement>('.header-menu');
+  headerMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => { headerMenu.open = false; });
+  });
+  document.addEventListener('click', (event) => {
+    if (headerMenu && event.target instanceof Node && !headerMenu.contains(event.target)) headerMenu.open = false;
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && headerMenu?.open) {
+      headerMenu.open = false;
+      headerMenu.querySelector<HTMLElement>('summary')?.focus();
+    }
+  });
+
+</script>

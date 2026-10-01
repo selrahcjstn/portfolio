@@ -1,26 +1,14 @@
 ---
-
+import PortfolioLayout from '../layout/PortfolioLayout.astro';
+import About from '../sections/About.astro';
+import Education from '../sections/Education.astro';
+import Projects from '../sections/Projects.astro';
+import Contact from '../sections/Contact.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<section class="bg-background-primary text-foreground-primary">
-  <h1 class="text-5xl font-semibold">
-    Charles Justine Mantes
-  </h1>
-
-  <p class="text-foreground-secondary">
-    Aspiring Full-Stack Engineer
-  </p>
-</section>
-
-	</body>
-</html>
+<PortfolioLayout>
+  <About />
+  <Education />
+  <Projects />
+  <Contact />
+</PortfolioLayout>

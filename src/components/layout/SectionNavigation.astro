@@ -1,0 +1,12 @@
+---
+import { navigation } from '../../data/portfolio';
+---
+
+<nav class="section-nav" aria-label="Portfolio sections">
+  {navigation.map((section, index) => (
+    <a class:list={['section-nav-item', { active: index === 0 }]} href={`#${section.id}`} aria-current={index === 0 ? 'location' : undefined}>
+      <span class="nav-rule" aria-hidden="true"></span>
+      <span>{section.number}. {section.label.toUpperCase()}</span>
+    </a>
+  ))}
+</nav>

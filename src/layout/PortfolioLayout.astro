@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import 'devicon/devicon.min.css';
+import Navbar from '../components/layout/Navbar.astro';
+import ProfileSidebar from '../components/layout/ProfileSidebar.astro';
+import { profile } from '../data/portfolio';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${profile.name} · ${profile.role}`,
+  description = `Portfolio of ${profile.name}, ${profile.role}.`,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="portfolio-shell">
+      <Navbar />
+      <div class="portfolio-columns">
+        <ProfileSidebar />
+        <main class="content-panel" tabindex="0" aria-label="Portfolio content">
+          <div class="content-inner">
+            <slot />
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      import '../lib/portfolio-navigation';
+    </script>
+  </body>
+</html>

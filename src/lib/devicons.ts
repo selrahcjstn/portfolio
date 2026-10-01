@@ -1,0 +1,15 @@
+export const deviconClasses: Record<string, string> = {
+  JAVA: 'devicon-java-plain',
+  JAVASCRIPT: 'devicon-javascript-plain',
+  UNITY: 'devicon-unity-plain',
+  'REACT.JS': 'devicon-react-plain',
+  PHP: 'devicon-php-plain',
+  'ASP.NET CORE': 'devicon-dotnetcore-plain',
+  'VUE.JS': 'devicon-vuejs-plain',
+  'REACT NATIVE': 'devicon-reactnative-original',
+  PYTHON: 'devicon-python-plain',
+  SUPABASE: 'devicon-supabase-plain',
+  'C#': 'devicon-csharp-plain',
+  C: 'devicon-c-plain',
+  FIREBASE: 'devicon-firebase-plain',
+};

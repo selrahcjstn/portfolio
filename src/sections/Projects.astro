@@ -1,0 +1,22 @@
+---
+import { ArrowUpRightIcon } from '@lucide/astro';
+import TechnologyTags from '../components/ui/TechnologyTags.astro';
+import { projects } from '../data/portfolio';
+---
+
+<section class="projects-section" id="projects" aria-labelledby="projects-heading">
+  <h2 class="section-label" id="projects-heading">03. PROJECTS</h2>
+  <div class="project-list">
+    {projects.map((project) => (
+      <article class="project-item">
+        <div class="project-image" aria-hidden="true"></div>
+        <div class="project-details">
+          <h3>{project.title}<ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></h3>
+          <p>{project.description}</p>
+          <TechnologyTags tags={project.tags} label={`${project.title} technologies`} />
+        </div>
+      </article>
+    ))}
+  </div>
+  <a class="text-link projects-link" href="#projects"><span>View All Projects</span><ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></a>
+</section>
