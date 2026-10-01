@@ -16,8 +16,16 @@ import { email, profile, socialLinks } from '../../data/portfolio';
 
   <nav class="social-links" aria-label="Social links">
     <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)" title="GitHub"><i class="devicon devicon-github-plain" aria-hidden="true"></i></a>
-    {socialLinks.linkedin && <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)" title="LinkedIn"><i class="devicon devicon-linkedin-plain" aria-hidden="true"></i></a>}
-    <a href={`mailto:${email}`} aria-label="Email Charles" title="Email"><MailIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>
+    {socialLinks.linkedin
+      ? <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)" title="LinkedIn"><i class="devicon devicon-linkedin-plain" aria-hidden="true"></i></a>
+      : <span class="social-link-placeholder" aria-label="LinkedIn profile link not set" title="LinkedIn"><i class="devicon devicon-linkedin-plain" aria-hidden="true"></i></span>}
+    {socialLinks.facebook
+      ? <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook profile (opens in a new tab)" title="Facebook"><i class="devicon devicon-facebook-plain" aria-hidden="true"></i></a>
+      : <span class="social-link-placeholder" aria-label="Facebook profile link not set" title="Facebook"><i class="devicon devicon-facebook-plain" aria-hidden="true"></i></span>}
+    {socialLinks.instagram
+      ? <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram profile (opens in a new tab)" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.65" cy="6.55" r="1" fill="currentColor" stroke="none"/></svg></a>
+      : <span class="social-link-placeholder" aria-label="Instagram profile link not set" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.65" cy="6.55" r="1" fill="currentColor" stroke="none"/></svg></span>}
+    <a href={`mailto:${email}`} aria-label="Email Charles" title="Email"><MailIcon size={20} strokeWidth={1.8} aria-hidden="true" /></a>
     {socialLinks.resume && <a href={socialLinks.resume} target="_blank" rel="noopener noreferrer" aria-label="View resume (opens in a new tab)" title="Resume"><FileTextIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>}
   </nav>
 </aside>

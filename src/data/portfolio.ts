@@ -8,10 +8,12 @@ export const profile = {
   availability: 'Available for Internship · 2026',
 };
 
-// Add verified destinations to show LinkedIn and Resume in the sidebar.
+// Add verified destinations to show social links in the sidebar.
 export const socialLinks = {
   github: 'https://github.com/selrahcjstn',
   linkedin: '',
+  facebook: '',
+  instagram: '',
   resume: '',
 };
 

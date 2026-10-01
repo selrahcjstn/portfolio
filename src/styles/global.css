@@ -183,10 +183,13 @@ img { display: block; flex: 0 0 auto; }
 .nav-rule { display: block; width: 32px; height: 1px; flex-shrink: 0; background: currentColor; transition: width 240ms ease, background-color 200ms ease; }
 .section-nav-item.active .nav-rule, .section-nav-item:hover .nav-rule, .section-nav-item:focus-visible .nav-rule { width: 64px; }
 .social-links { display: flex; align-items: center; gap: 14px; margin-top: 40px; color: var(--color-foreground-secondary); }
-.social-links a { display: grid; width: 32px; height: 32px; place-items: center; transition: color 180ms ease; }
+.social-links a, .social-links .social-link-placeholder { display: grid; width: 32px; height: 32px; place-items: center; }
+.social-links a { transition: color 180ms ease; }
+.social-links .social-link-placeholder { color: inherit; }
+.social-links a svg, .social-links .social-link-placeholder svg { width: 20px; height: 20px; }
 .devicon { display: inline-block; color: currentColor; font-style: normal; line-height: 1; }
 .outline-action .devicon { font-size: 14px; }
-.social-links .devicon { font-size: 23px; }
+.social-links .devicon { font-size: 20px; }
 
 .content-panel {
   min-width: 0;
