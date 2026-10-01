@@ -1,22 +1,24 @@
 ---
 import { ArrowUpRightIcon } from '@lucide/astro';
 import TechnologyTags from '../components/ui/TechnologyTags.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
 import { education } from '../data/portfolio';
 ---
 
 <section class="education-section" id="education" aria-labelledby="education-heading">
-  <h2 class="section-label" id="education-heading">03. EDUCATION</h2>
+  <SectionHeading id="education-heading" eyebrow="03. EDUCATION" title="Where I learned and grew." description="My academic background and the technologies I explored along the way." />
   <div class="education-list">
     {education.map((item) => (
       <article class="education-item">
         <p class="period">{item.period}</p>
         <div class="education-details">
           <h3>{item.title}<ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></h3>
-          <p>{item.description}</p>
+          <p class="education-qualification">{item.qualification}</p>
+          <p class="education-description">{item.description}</p>
           <TechnologyTags tags={item.tags} label={`${item.title} technologies`} />
         </div>
       </article>
     ))}
   </div>
-  <a class="text-link" href="#contact"><span>View My Resume</span><ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></a>
+  <a class="text-link education-resume" href="#contact"><span>View My Resume</span><ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></a>
 </section>

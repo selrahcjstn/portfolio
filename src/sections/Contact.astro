@@ -1,14 +1,11 @@
 ---
 import ContactForm from '../components/interactive/ContactForm.astro';
 import EmailContact from '../components/interactive/EmailContact.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
 ---
 
 <section class="contact-section" id="contact" aria-labelledby="contact-heading">
-  <h2 class="section-label" id="contact-heading">06. CONTACT</h2>
-  <div class="contact-intro">
-    <h3>Let’s build something together.</h3>
-    <p>Have an internship opportunity or a project in mind? Share a few details below, or reach out by email.</p>
-  </div>
+  <SectionHeading id="contact-heading" eyebrow="06. CONTACT" title="Let's build something." description="Have an opportunity, project, or just want to talk? Get in touch." />
   <ContactForm />
   <EmailContact />
 </section>

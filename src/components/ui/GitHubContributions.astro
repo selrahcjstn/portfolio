@@ -1,5 +1,6 @@
 ---
 import { ArrowUpRightIcon } from '@lucide/astro';
+import SectionHeading from './SectionHeading.astro';
 import { getGitHubContributions, type ContributionLevel } from '../../lib/github-contributions';
 
 const calendar = await getGitHubContributions();
@@ -55,22 +56,17 @@ const period = firstDay && lastDay
 ---
 
 <section class="github-contributions" id="github-contributions" aria-labelledby="github-contributions-heading">
-  <h2 class="section-label" id="github-contributions-heading">05. CONTRIBUTIONS</h2>
-  <div class="contributions-heading">
-    <div>
-      <h3>Contribution history</h3>
-    </div>
-    {calendar && (
-      <p class="contributions-total">
-        <strong>{calendar.totalContributions.toLocaleString()}</strong>
-        <span>contributions</span>
-      </p>
-    )}
-  </div>
+  <SectionHeading id="github-contributions-heading" eyebrow="05. CONTRIBUTIONS" title="Building consistently." description="A snapshot of my development activity over the past year." />
 
   {calendar ? (
     <>
-      <p class="contributions-period" id="contributions-period">{period}</p>
+      <div class="contributions-heading">
+        <p class="contributions-total">
+          <strong>{calendar.totalContributions.toLocaleString()}</strong>
+          <span>contributions</span>
+        </p>
+        <p class="contributions-period" id="contributions-period">{period}</p>
+      </div>
       <div class="contributions-scroll" role="region" aria-label="Contribution calendar; scroll horizontally to view the full year" aria-describedby="contributions-period" tabindex="0">
         <div class="contributions-chart" style={`--week-count: ${weeks.length}`}>
           <div class="contribution-months" aria-hidden="true">

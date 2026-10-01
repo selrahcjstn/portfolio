@@ -66,14 +66,16 @@ export const navigation: NavigationSection[] = [
 export const education: EducationEntry[] = [
   {
     period: '2023 — PRESENT',
-    title: 'College · Bulacan State University',
-    description: 'Currently, I’m a 4th-year BSIT student at Bulacan State University and actively looking for an internship opportunity where I can apply my skills, gain industry experience, and contribute to real-world projects.',
+    title: 'Bulacan State University',
+    qualification: 'Bachelor of Science in Information Technology',
+    description: 'Fourth-year BSIT student applying programming and software development skills through academic projects.',
     tags: ['JAVA', 'JAVASCRIPT', 'UNITY', 'REACT.JS', 'PHP'],
   },
   {
-    period: '2023 — PRESENT',
-    title: 'Seniror High · La Consolacion University Philipoines',
-    description: 'Built my foundation in programming and computer technology through hands-on activities and academic projects. Learned the fundamentals of C, Java, and C#, along with introductory robotics and basic software development concepts.',
+    period: '2021 — 2023',
+    title: 'La Consolacion University Philippines',
+    qualification: 'Information and Communications Technology (ICT)',
+    description: 'Built a foundation in C, Java, C#, computer technology, and introductory robotics through hands-on projects.',
     tags: ['JAVA', 'C', 'C#'],
   },
 ];

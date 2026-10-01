@@ -6,6 +6,7 @@ export interface PortfolioEntry {
 
 export interface EducationEntry extends PortfolioEntry {
   period: string;
+  qualification: string;
 }
 
 export interface NavigationSection {

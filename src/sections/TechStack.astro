@@ -1,10 +1,11 @@
 ---
 import { deviconClasses } from '../lib/devicons';
+import SectionHeading from '../components/ui/SectionHeading.astro';
 import { techStack } from '../data/portfolio';
 ---
 
 <section class="tech-stack" id="tech-stack" aria-labelledby="tech-stack-heading">
-  <h2 class="section-label" id="tech-stack-heading">02. TECH STACK</h2>
+  <SectionHeading id="tech-stack-heading" eyebrow="02. TECH STACK" title="Tools I build with." description="Technologies I use across frontend, backend, mobile, and development workflows." />
   <div class="tech-stack-groups">
     {techStack.map((group) => (
       <div class="tech-stack-group">
