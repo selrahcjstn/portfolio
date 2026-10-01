@@ -18,6 +18,7 @@ src/
 │   │   ├── ProfileSidebar.astro    # Profile, section navigation, social links
 │   │   └── SectionNavigation.astro # Navigation from shared section data
 │   └── ui/
+│       ├── GitHubContributions.astro # Build-time contribution calendar
 │       └── TechnologyTags.astro    # Shared technology badges
 ├── data/
 │   └── portfolio.ts               # Profile, email, navigation, tech stack, education, projects
@@ -25,9 +26,10 @@ src/
 │   └── PortfolioLayout.astro      # Document metadata and two-column page shell
 ├── lib/
 │   ├── devicons.ts                # Technology-to-icon mapping
+│   ├── github-contributions.ts    # Server-side GitHub GraphQL query
 │   └── portfolio-navigation.ts    # Scroll tracking and header visibility
 ├── pages/
-│   └── index.astro                # Composes the layout and five sections
+│   └── index.astro                # Composes the layout and six sections
 ├── sections/
 │   ├── About.astro
 │   ├── TechStack.astro
@@ -56,6 +58,14 @@ public/
 Components render as Astro HTML; these interactions use small browser scripts
 without React hydration. On desktop, only the right half scrolls. On mobile,
 the page uses normal document scrolling.
+
+## GitHub contributions
+
+Set `GITHUB_USERNAME` and `GITHUB_TOKEN` as environment variables locally and in
+the deployment environment. The token is used only while Astro builds the
+Contributions section; it is not sent to the browser. The calendar updates on each
+new build. If GitHub is unavailable, the portfolio still builds and shows an
+unavailable message in place of the graph.
 
 ## Development
 

@@ -2,7 +2,7 @@ const contentPanel = document.querySelector<HTMLElement>('.content-panel');
 const siteHeader = document.querySelector<HTMLElement>('.site-header');
 const sectionLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.section-nav-item'));
 const sections = Array.from(document.querySelectorAll<HTMLElement>('.content-inner > section'));
-const desktopLayout = window.matchMedia('(min-width: 861px)');
+const desktopLayout = window.matchMedia('(min-width: 1024px) and (min-height: 601px)');
 const headerMenu = document.querySelector<HTMLDetailsElement>('.header-menu');
 let previousScrollTop = 0;
 let scrollFrame = 0;
@@ -47,5 +47,9 @@ const scheduleScrollUpdate = () => {
 contentPanel?.addEventListener('scroll', scheduleScrollUpdate, { passive: true });
 window.addEventListener('scroll', scheduleScrollUpdate, { passive: true });
 window.addEventListener('resize', scheduleScrollUpdate);
+desktopLayout.addEventListener('change', () => {
+  previousScrollTop = desktopLayout.matches ? contentPanel?.scrollTop ?? 0 : window.scrollY;
+  scheduleScrollUpdate();
+});
 document.fonts.ready.then(scheduleScrollUpdate);
 updateScrollState();

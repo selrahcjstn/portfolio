@@ -3,8 +3,16 @@ import type { EducationEntry, NavigationSection, PortfolioEntry } from '../types
 export const profile = {
   name: 'Charles Justine Mantes',
   initials: 'CJM',
-  role: 'Full Stack Developer',
-  tagline: 'Building scalable web and mobile applications with reliable backends and practical experiences.',
+  role: 'Full-Stack Engineer',
+  tagline: 'Building practical web and mobile products with clean interfaces and reliable backends.',
+  availability: 'Available for Internship · 2026',
+};
+
+// Add verified destinations to show LinkedIn and Resume in the sidebar.
+export const socialLinks = {
+  github: 'https://github.com/selrahcjstn',
+  linkedin: '',
+  resume: '',
 };
 
 export const email = 'charlesjustinemantes.main@gmail.com';
@@ -51,7 +59,8 @@ export const navigation: NavigationSection[] = [
   { id: 'tech-stack', label: 'Tech stack', number: '02' },
   { id: 'education', label: 'Education', number: '03' },
   { id: 'projects', label: 'Projects', number: '04' },
-  { id: 'contact', label: 'Contact', number: '05' },
+  { id: 'github-contributions', label: 'Contributions', number: '05' },
+  { id: 'contact', label: 'Contact', number: '06' },
 ];
 
 export const education: EducationEntry[] = [

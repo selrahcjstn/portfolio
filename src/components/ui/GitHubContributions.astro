@@ -1,0 +1,172 @@
+---
+import { ArrowUpRightIcon } from '@lucide/astro';
+import { getGitHubContributions, type ContributionLevel } from '../../lib/github-contributions';
+
+const calendar = await getGitHubContributions();
+const dateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const fullDateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const levelClasses: Record<ContributionLevel, string> = {
+  NONE: 'level-none',
+  FIRST_QUARTILE: 'level-first',
+  SECOND_QUARTILE: 'level-second',
+  THIRD_QUARTILE: 'level-third',
+  FOURTH_QUARTILE: 'level-fourth',
+};
+
+const weeks = calendar?.weeks.map((week, weekIndex) => ({
+  weekIndex,
+  days: Array.from({ length: 7 }, (_, weekday) => {
+    const day = week.contributionDays.find((entry) => entry.weekday === weekday);
+    if (!day) return null;
+    const date = fullDateFormatter.format(new Date(`${day.date}T00:00:00Z`));
+    const count = day.contributionCount;
+    return {
+      ...day,
+      weekIndex,
+      label: `${count} ${count === 1 ? 'contribution' : 'contributions'} on ${date}`,
+      levelClass: levelClasses[day.contributionLevel] ?? 'level-none',
+    };
+  }),
+})) ?? [];
+
+const months = calendar?.months.map((month) => ({
+  name: month.name.slice(0, 3),
+  weekIndex: calendar.weeks.findIndex((week, index) =>
+    week.firstDay <= month.firstDay &&
+    (index === calendar.weeks.length - 1 || calendar.weeks[index + 1].firstDay > month.firstDay)
+  ),
+})).filter((month) => month.weekIndex >= 0) ?? [];
+
+const firstDay = calendar?.weeks[0]?.contributionDays[0]?.date;
+const lastDay = calendar?.weeks.at(-1)?.contributionDays.at(-1)?.date;
+const period = firstDay && lastDay
+  ? `${dateFormatter.format(new Date(`${firstDay}T00:00:00Z`))} — ${dateFormatter.format(new Date(`${lastDay}T00:00:00Z`))}`
+  : '';
+---
+
+<section class="github-contributions" id="github-contributions" aria-labelledby="github-contributions-heading">
+  <h2 class="section-label" id="github-contributions-heading">05. CONTRIBUTIONS</h2>
+  <div class="contributions-heading">
+    <div>
+      <h3>Contribution history</h3>
+    </div>
+    {calendar && (
+      <p class="contributions-total">
+        <strong>{calendar.totalContributions.toLocaleString()}</strong>
+        <span>contributions</span>
+      </p>
+    )}
+  </div>
+
+  {calendar ? (
+    <>
+      <p class="contributions-period" id="contributions-period">{period}</p>
+      <div class="contributions-scroll" role="region" aria-label="Contribution calendar; scroll horizontally to view the full year" aria-describedby="contributions-period" tabindex="0">
+        <div class="contributions-chart" style={`--week-count: ${weeks.length}`}>
+          <div class="contribution-months" aria-hidden="true">
+            {months.map((month) => (
+              <span style={`grid-column: ${month.weekIndex + 1}`}>{month.name}</span>
+            ))}
+          </div>
+          <div class="contributions-body">
+            <div class="contribution-weekdays" aria-hidden="true">
+              <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
+            </div>
+            <div class="contribution-weeks" aria-label="Daily contributions">
+              {weeks.map((week) => (
+                <div class="contribution-week">
+                  {week.days.map((day) => day ? (
+                    <span
+                      class:list={['contribution-day', day.levelClass]}
+                      role="img"
+                      aria-label={day.label}
+                      title={day.label}
+                      tabindex="0"
+                      data-week={day.weekIndex}
+                      data-weekday={day.weekday}
+                    ></span>
+                  ) : (
+                    <span class="contribution-day is-empty" aria-hidden="true"></span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contributions-footer">
+        <div class="contributions-legend" aria-label="Contribution intensity from less to more">
+          <span>LESS</span>
+          <i class="level-none" aria-hidden="true"></i>
+          <i class="level-first" aria-hidden="true"></i>
+          <i class="level-second" aria-hidden="true"></i>
+          <i class="level-third" aria-hidden="true"></i>
+          <i class="level-fourth" aria-hidden="true"></i>
+          <span>MORE</span>
+        </div>
+        <a href={`https://github.com/${encodeURIComponent(calendar.login)}`} target="_blank" rel="noopener noreferrer">
+          View GitHub profile <ArrowUpRightIcon size={14} strokeWidth={1.6} aria-hidden="true" />
+        </a>
+      </div>
+    </>
+  ) : (
+    <p class="contributions-unavailable">Contribution activity is unavailable at the moment.</p>
+  )}
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.contribution-weeks').forEach((grid) => {
+    const days = Array.from(grid.querySelectorAll<HTMLElement>('.contribution-day[role="img"]'));
+    if (!days.length) return;
+    days.forEach((day) => { day.tabIndex = -1; });
+    days[days.length - 1].tabIndex = 0;
+    const scrollArea = grid.closest<HTMLElement>('.contributions-scroll');
+    if (scrollArea && scrollArea.scrollWidth > scrollArea.clientWidth) {
+      scrollArea.scrollLeft = scrollArea.scrollWidth;
+    }
+
+    grid.addEventListener('focusin', (event) => {
+      const day = event.target as HTMLElement;
+      if (!days.includes(day)) return;
+      days.forEach((item) => { item.tabIndex = item === day ? 0 : -1; });
+    });
+
+    grid.addEventListener('keydown', (event) => {
+      const day = event.target as HTMLElement;
+      if (!days.includes(day)) return;
+      const week = Number(day.dataset.week);
+      const weekday = Number(day.dataset.weekday);
+      let targetWeek = week;
+      let targetWeekday = weekday;
+
+      switch (event.key) {
+        case 'ArrowLeft': targetWeek -= 1; break;
+        case 'ArrowRight': targetWeek += 1; break;
+        case 'ArrowUp': targetWeekday -= 1; break;
+        case 'ArrowDown': targetWeekday += 1; break;
+        case 'Home': targetWeekday = 0; break;
+        case 'End': targetWeekday = 6; break;
+        default: return;
+      }
+
+      event.preventDefault();
+      const target = days.find((item) =>
+        Number(item.dataset.week) === targetWeek && Number(item.dataset.weekday) === targetWeekday
+      );
+      if (target) {
+        target.focus();
+        target.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
+    });
+  });
+</script>

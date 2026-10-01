@@ -1,7 +1,7 @@
 ---
-import { BriefcaseBusinessIcon, CameraIcon, UsersRoundIcon } from '@lucide/astro';
+import { FileTextIcon, MailIcon } from '@lucide/astro';
 import SectionNavigation from './SectionNavigation.astro';
-import { profile } from '../../data/portfolio';
+import { email, profile, socialLinks } from '../../data/portfolio';
 ---
 
 <aside class="profile-panel" aria-labelledby="profile-name">
@@ -9,14 +9,15 @@ import { profile } from '../../data/portfolio';
     <h1 id="profile-name">{profile.name}</h1>
     <p class="role">{profile.role}</p>
     <p class="tagline">{profile.tagline}</p>
+    <p class="availability">{profile.availability}</p>
   </div>
 
   <SectionNavigation />
 
   <nav class="social-links" aria-label="Social links">
-    <a href="#projects" aria-label="GitHub"><i class="devicon devicon-github-plain" aria-hidden="true"></i></a>
-    <a href="#contact" aria-label="Instagram"><CameraIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>
-    <a href="#contact" aria-label="LinkedIn"><BriefcaseBusinessIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>
-    <a href="#contact" aria-label="Facebook"><UsersRoundIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>
+    <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)" title="GitHub"><i class="devicon devicon-github-plain" aria-hidden="true"></i></a>
+    {socialLinks.linkedin && <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)" title="LinkedIn"><i class="devicon devicon-linkedin-plain" aria-hidden="true"></i></a>}
+    <a href={`mailto:${email}`} aria-label="Email Charles" title="Email"><MailIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>
+    {socialLinks.resume && <a href={socialLinks.resume} target="_blank" rel="noopener noreferrer" aria-label="View resume (opens in a new tab)" title="Resume"><FileTextIcon size={22} strokeWidth={1.7} aria-hidden="true" /></a>}
   </nav>
 </aside>
