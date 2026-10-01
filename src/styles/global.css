@@ -119,7 +119,9 @@ img { display: block; flex: 0 0 auto; }
   padding: 80px 24px;
   place-items: center;
   border: 0;
-  background: rgb(247 245 239 / 96%);
+  background: color-mix(in srgb, var(--color-background-primary) 96%, transparent);
+  color: var(--color-foreground-primary);
+  font-family: inherit;
   -webkit-backdrop-filter: blur(18px) saturate(90%);
   backdrop-filter: blur(18px) saturate(90%);
   opacity: 0;
