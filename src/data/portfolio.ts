@@ -17,6 +17,8 @@ export const socialLinks = {
   resume: '',
 };
 
+export const blogUrl = '';
+
 export const email = 'charlesjustinemantes.main@gmail.com';
 
 export const siteCredit = 'Designed in Figma and developed in Visual Studio Code by yours truly. Built with Astro and Tailwind CSS, and deployed on Vercel. Typography features Geist and Geist Mono for a clean, minimal aesthetic.';

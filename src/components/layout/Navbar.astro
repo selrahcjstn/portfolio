@@ -1,14 +1,40 @@
 ---
-import { MessageSquareIcon } from '@lucide/astro';
+import { MoonIcon, SunIcon } from '@lucide/astro';
 import PageMenu from '../interactive/PageMenu.astro';
-import { profile } from '../../data/portfolio';
+import { blogUrl, profile } from '../../data/portfolio';
 ---
 
 <header class="site-header">
   <a class="brand" href="#about" aria-label={`${profile.name}, home`}>{profile.initials}</a>
   <nav class="header-actions" aria-label="Primary navigation">
-    <a class="outline-action" href="#contact" aria-label="Message Charles"><MessageSquareIcon size={14} strokeWidth={1.6} aria-hidden="true" /><span>MESSAGE</span></a>
-    <a class="outline-action github-action" href="#projects" aria-label="GitHub projects"><i class="devicon devicon-github-plain" aria-hidden="true"></i><span>GITHUB</span></a>
+    {blogUrl
+      ? <a class="outline-action" href={blogUrl} aria-label="Visit blog">BLOG</a>
+      : <span class="outline-action action-placeholder" aria-disabled="true" title="Blog link not set">BLOG</span>}
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <MoonIcon class="theme-icon theme-icon-moon" size={17} strokeWidth={1.7} aria-hidden="true" />
+      <SunIcon class="theme-icon theme-icon-sun" size={17} strokeWidth={1.7} aria-hidden="true" />
+    </button>
     <PageMenu />
   </nav>
 </header>
+
+<script>
+  const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  root.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+
+  themeToggle?.addEventListener('click', () => {
+    const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = nextTheme;
+    localStorage.setItem('portfolio-theme', nextTheme);
+    const label = nextTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    themeToggle.setAttribute('aria-label', label);
+    themeToggle.setAttribute('title', label);
+  });
+
+  if (themeToggle && savedTheme === 'dark') {
+    themeToggle.setAttribute('aria-label', 'Switch to light mode');
+    themeToggle.setAttribute('title', 'Switch to light mode');
+  }
+</script>
