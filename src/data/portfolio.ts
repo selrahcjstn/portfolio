@@ -1,4 +1,4 @@
-import type { EducationEntry, NavigationSection, PortfolioEntry } from '../types/portfolio';
+import type { EducationEntry, NavigationSection, PortfolioEntry, ProjectEntry } from '../types/portfolio';
 
 export const profile = {
   name: 'Charles Justine Mantes',
@@ -11,10 +11,10 @@ export const profile = {
 // Add verified destinations to show social links in the sidebar.
 export const socialLinks = {
   github: 'https://github.com/selrahcjstn',
-  linkedin: '',
-  facebook: '',
-  instagram: '',
-  resume: '',
+  linkedin: 'https://ph.linkedin.com/in/charles-justine-mantes-a91055379',
+  facebook: 'https://www.facebook.com/share/1JFoUwsPYj/?mibextid=wwXIfr',
+  instagram: 'https://www.instagram.com/chrls_jj',
+  resume: '/resume.pdf',
 };
 
 export const blogUrl = '';
@@ -84,9 +84,9 @@ export const education: EducationEntry[] = [
   },
 ];
 
-export const projects: PortfolioEntry[] = [
-  { title: 'ParkFlow - Parking Management System', description: 'Motorcycle parking management system designed to streamline campus parking, vehicle entry and exit, and real-time monitoring.', tags: ['ASP.NET CORE', 'VUE.JS', 'REACT.JS', 'REACT NATIVE'] },
+export const projects: ProjectEntry[] = [
+  { title: 'ParkFlow - Parking Management System', description: 'Motorcycle parking management system designed to streamline campus parking, vehicle entry and exit, and real-time monitoring.', tags: ['ASP.NET CORE', 'VUE.JS', 'REACT.JS', 'REACT NATIVE'], githubUrl: 'https://github.com/selrahcjstn/Parkflow-Web-Admin', liveDemoUrl: 'https://parkflow-web-admin.vercel.app/' },
   { title: 'Parsie', description: 'AI-powered study platform that transforms learning materials into structured reviewers and interactive quizzes.', tags: ['REACT.JS', 'PYTHON', 'SUPABASE'] },
-  { title: '2D Game Development', description: 'A school project created to explore the fundamentals of 2D game development, including gameplay mechanics, player interactions, and level design.', tags: ['C#'] },
-  { title: 'Istokkit', description: 'Inventory management system built to simplify product tracking, stock monitoring, and day-to-day inventory operations.', tags: ['REACT.JS', 'FIREBASE'] },
+  { title: '2D Game Development', description: 'A school project created to explore the fundamentals of 2D game development, including gameplay mechanics, player interactions, and level design.', tags: ['C#'], githubUrl: 'https://github.com/selrahcjstn/Second-Tide' },
+  { title: 'Istokkit', description: 'Inventory management system built to simplify product tracking, stock monitoring, and day-to-day inventory operations.', tags: ['REACT.JS', 'FIREBASE'], githubUrl: 'https://github.com/selrahcjstn/Istokkit-Online-Inventory-Management-System', liveDemoUrl: 'https://istokkit.app/' },
 ];

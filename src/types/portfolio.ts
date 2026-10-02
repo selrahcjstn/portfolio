@@ -9,6 +9,11 @@ export interface EducationEntry extends PortfolioEntry {
   qualification: string;
 }
 
+export interface ProjectEntry extends PortfolioEntry {
+  githubUrl?: string;
+  liveDemoUrl?: string;
+}
+
 export interface NavigationSection {
   id: string;
   label: string;

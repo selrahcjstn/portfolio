@@ -1,5 +1,5 @@
 ---
-import { ArrowUpRightIcon } from '@lucide/astro';
+import { ArrowUpRightIcon, Share2Icon } from '@lucide/astro';
 import TechnologyTags from '../components/ui/TechnologyTags.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import { projects } from '../data/portfolio';
@@ -10,9 +10,19 @@ import { projects } from '../data/portfolio';
   <div class="project-list">
     {projects.map((project) => (
       <article class="project-item">
-        <div class="project-image" aria-hidden="true"></div>
+        <div class="project-media">
+          <div class="project-image" aria-hidden="true"></div>
+        </div>
         <div class="project-details">
-          <h3>{project.title}<ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></h3>
+          <div class="project-title-row">
+            <h3>{project.title}<ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></h3>
+            {(project.githubUrl || project.liveDemoUrl) && (
+              <div class="project-title-actions" role="group" aria-label={`${project.title} links`}>
+                {project.githubUrl && <a class="project-icon-link" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub`} data-tooltip="GitHub"><i class="devicon devicon-github-plain" aria-hidden="true"></i></a>}
+                {project.liveDemoUrl && <a class="project-icon-link" href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} live demo`} data-tooltip="Live Demo"><Share2Icon size={18} strokeWidth={1.7} aria-hidden="true" /></a>}
+              </div>
+            )}
+          </div>
           <p>{project.description}</p>
           <TechnologyTags tags={project.tags} label={`${project.title} technologies`} />
         </div>
