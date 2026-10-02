@@ -1,15 +1,25 @@
 ---
-import { MoonIcon, SunIcon } from '@lucide/astro';
+import { ArrowUpRightIcon, MoonIcon, SunIcon } from '@lucide/astro';
 import PageMenu from '../interactive/PageMenu.astro';
-import { blogUrl, profile } from '../../data/portfolio';
+import { blogUrl, profile, socialLinks } from '../../data/portfolio';
 ---
 
 <header class="site-header">
   <a class="brand" href="#about" aria-label={`${profile.name}, home`}>{profile.initials}</a>
   <nav class="header-actions" aria-label="Primary navigation">
     {blogUrl
-      ? <a class="outline-action" href={blogUrl} aria-label="Visit blog">BLOG</a>
-      : <span class="outline-action action-placeholder" aria-disabled="true" title="Blog link not set">BLOG</span>}
+      ? <a class="header-blog-link" href={blogUrl} aria-label="Visit blog">BLOG</a>
+      : <span class="header-blog-link action-placeholder" aria-disabled="true" title="Blog link not set">BLOG</span>}
+    <a
+      class="outline-action resume-action"
+      href={socialLinks.resume || '#contact'}
+      target={socialLinks.resume ? '_blank' : undefined}
+      rel={socialLinks.resume ? 'noopener noreferrer' : undefined}
+      aria-label={socialLinks.resume ? 'View internship resume (opens in a new tab)' : 'Contact me to request my internship resume'}
+    >
+      <span>RESUME</span>
+      <ArrowUpRightIcon size={14} strokeWidth={1.7} aria-hidden="true" />
+    </a>
     <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
       <MoonIcon class="theme-icon theme-icon-moon" size={17} strokeWidth={1.7} aria-hidden="true" />
       <SunIcon class="theme-icon theme-icon-sun" size={17} strokeWidth={1.7} aria-hidden="true" />

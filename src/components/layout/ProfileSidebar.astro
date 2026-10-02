@@ -1,5 +1,5 @@
 ---
-import { FileTextIcon, MailIcon } from '@lucide/astro';
+import { ArrowUpRightIcon, FileTextIcon, MailIcon } from '@lucide/astro';
 import SectionNavigation from './SectionNavigation.astro';
 import { email, profile, socialLinks } from '../../data/portfolio';
 ---
@@ -10,6 +10,16 @@ import { email, profile, socialLinks } from '../../data/portfolio';
     <p class="role">{profile.role}</p>
     <p class="tagline">{profile.tagline}</p>
     <p class="availability">{profile.availability}</p>
+    <a
+      class="profile-resume-link"
+      href={socialLinks.resume || '#contact'}
+      target={socialLinks.resume ? '_blank' : undefined}
+      rel={socialLinks.resume ? 'noopener noreferrer' : undefined}
+      aria-label={socialLinks.resume ? 'View internship resume (opens in a new tab)' : 'Contact me to request my internship resume'}
+    >
+      <span>View Internship Resume</span>
+      <ArrowUpRightIcon size={14} strokeWidth={1.7} aria-hidden="true" />
+    </a>
   </div>
 
   <SectionNavigation />
