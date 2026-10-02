@@ -3,6 +3,7 @@ import '../styles/global.css';
 import 'devicon/devicon.min.css';
 import Navbar from '../components/layout/Navbar.astro';
 import ProfileSidebar from '../components/layout/ProfileSidebar.astro';
+import PortfolioChat from '../components/interactive/PortfolioChat.astro';
 import { profile } from '../data/portfolio';
 
 interface Props {
@@ -24,8 +25,71 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let shell = null;
+        let safetyTimer = 0;
+
+        const finishIntro = () => {
+          if (safetyTimer) window.clearTimeout(safetyTimer);
+          shell?.removeAttribute('inert');
+          root.classList.remove('intro-playing');
+        };
+
+        try {
+          if (prefersReducedMotion) return;
+
+          root.classList.add('intro-playing');
+          // Keep a long failsafe for a stalled document; the real timer starts
+          // only once the greeting sequence itself begins.
+          safetyTimer = window.setTimeout(finishIntro, 10000);
+
+          document.addEventListener('DOMContentLoaded', async () => {
+            try {
+              if (!root.classList.contains('intro-playing')) return;
+              window.clearTimeout(safetyTimer);
+              safetyTimer = window.setTimeout(finishIntro, 5000);
+              shell = document.querySelector('.portfolio-shell');
+              const greeting = document.querySelector('.intro-greeting');
+              const greetings = ['Kamusta', 'Hello', 'Hola', 'Bonjour', 'こんにちは'];
+              const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+
+              if (!shell || !greeting) {
+                finishIntro();
+                return;
+              }
+
+              shell.setAttribute('inert', '');
+              greeting.textContent = greetings[0];
+              window.requestAnimationFrame(() => greeting.classList.add('is-visible'));
+
+              for (const message of greetings.slice(1)) {
+                await wait(400);
+                greeting.classList.remove('is-visible');
+                await wait(150);
+                greeting.textContent = message;
+                greeting.classList.add('is-visible');
+              }
+
+              // Let the final Japanese greeting land before revealing the page.
+              await wait(1100);
+              finishIntro();
+            } catch {
+              finishIntro();
+            }
+          }, { once: true });
+        } catch {
+          finishIntro();
+        }
+      })();
+    </script>
   </head>
   <body>
+    <div class="intro-screen" aria-hidden="true">
+      <span class="intro-greeting"></span>
+    </div>
     <div class="portfolio-shell">
       <Navbar />
       <div class="portfolio-columns">
@@ -36,6 +100,7 @@ const {
           </div>
         </main>
       </div>
+      <PortfolioChat />
     </div>
     <script>
       import '../lib/portfolio-navigation';

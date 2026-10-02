@@ -1,0 +1,132 @@
+---
+import { ArrowUpIcon, MessageSquareIcon, XIcon } from '@lucide/astro';
+---
+
+<div class="portfolio-chat" data-portfolio-chat>
+  <section
+    class="chat-panel"
+    id="portfolio-chat-panel"
+    role="dialog"
+    aria-labelledby="portfolio-chat-title"
+    aria-describedby="portfolio-chat-subtitle"
+    aria-hidden="true"
+    inert
+  >
+    <header class="chat-header">
+      <div>
+        <h2 id="portfolio-chat-title">Ask Charles</h2>
+        <p id="portfolio-chat-subtitle">Portfolio Assistant</p>
+      </div>
+      <button class="chat-close" type="button" aria-label="Close chat">
+        <XIcon size={18} strokeWidth={1.7} aria-hidden="true" />
+      </button>
+    </header>
+    <div class="chat-conversation" role="log" aria-label="Chat messages" aria-live="polite" aria-relevant="additions" tabindex="0">
+      <p class="chat-message">
+        <span class="sr-only">Portfolio Assistant: </span>
+        Hi! I'm Charles' portfolio assistant. Ask me about his projects, skills, or experience.
+      </p>
+    </div>
+    <form class="chat-form">
+      <label class="sr-only" for="portfolio-chat-input">Your message</label>
+      <div class="chat-composer">
+        <input id="portfolio-chat-input" name="message" type="text" placeholder="Ask me something..." maxlength="2000" autocomplete="off" required />
+        <button class="chat-send" type="submit" aria-label="Send message" disabled>
+          <ArrowUpIcon size={18} strokeWidth={1.7} aria-hidden="true" />
+        </button>
+      </div>
+      <p class="chat-note">UI preview · Replies aren't connected yet.</p>
+    </form>
+  </section>
+  <button class="chat-toggle" type="button" aria-label="Open chat" aria-expanded="false" aria-controls="portfolio-chat-panel" aria-haspopup="dialog" hidden>
+    <MessageSquareIcon size={21} strokeWidth={1.7} aria-hidden="true" />
+  </button>
+</div>
+
+<script>
+  const chat = document.querySelector<HTMLElement>('[data-portfolio-chat]');
+  if (chat) {
+    const toggle = chat.querySelector<HTMLButtonElement>('.chat-toggle')!;
+    const panel = chat.querySelector<HTMLElement>('.chat-panel')!;
+    const close = chat.querySelector<HTMLButtonElement>('.chat-close')!;
+    const form = chat.querySelector<HTMLFormElement>('.chat-form')!;
+    const input = chat.querySelector<HTMLInputElement>('input')!;
+    const send = chat.querySelector<HTMLButtonElement>('.chat-send')!;
+    const conversation = chat.querySelector<HTMLElement>('.chat-conversation')!;
+    let isOpen = false;
+
+    const setOpen = (open: boolean) => {
+      isOpen = open;
+      chat.classList.toggle('is-open', open);
+      panel.inert = !open;
+      panel.setAttribute('aria-hidden', String(!open));
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close chat' : 'Open chat');
+      (open ? input : toggle).focus({ preventScroll: true });
+    };
+
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => setOpen(!isOpen));
+    close.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && isOpen && !event.defaultPrevented && !document.querySelector('dialog[open]')) {
+        setOpen(false);
+      }
+    });
+    input.addEventListener('input', () => {
+      send.disabled = !input.value.trim();
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      // UI only: add local text safely. A future integration can connect here.
+      const message = document.createElement('p');
+      message.className = 'chat-message chat-message-user';
+      const label = document.createElement('span');
+      label.className = 'sr-only';
+      label.textContent = 'You: ';
+      message.append(label, document.createTextNode(text));
+      conversation.append(message);
+      input.value = '';
+      send.disabled = true;
+      conversation.scrollTop = conversation.scrollHeight;
+      input.focus({ preventScroll: true });
+    });
+  }
+</script>
+
+<style>
+  .portfolio-chat { position: fixed; z-index: 9; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); display: flex; justify-content: flex-end; width: min(352px, calc(100% - max(24px, env(safe-area-inset-left)) - max(24px, env(safe-area-inset-right)))); pointer-events: none; }
+  button { display: grid; place-items: center; padding: 0; cursor: pointer; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease; }
+  button:focus-visible, input:focus-visible, .chat-conversation:focus-visible { outline: 2px solid var(--color-foreground-primary); outline-offset: 3px; }
+  .chat-toggle { width: 48px; height: 48px; border: 1px solid var(--color-border-strong); border-radius: 50%; background: var(--color-background-inverse); color: var(--color-foreground-inverse); pointer-events: auto; }
+  .chat-toggle[hidden] { display: none; }
+  .chat-toggle:hover { background: var(--color-interactive-hover); }
+  .chat-panel { position: absolute; bottom: 60px; right: 0; display: flex; flex-direction: column; width: 100%; height: min(420px, calc(100dvh - 112px)); border: 1px solid var(--color-border-default); border-radius: 6px; background: var(--color-background-pure); color: var(--color-foreground-primary); visibility: hidden; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 180ms ease, transform 180ms ease, visibility 0s 180ms; }
+  .is-open .chat-panel { visibility: visible; opacity: 1; transform: translateY(0); pointer-events: auto; transition-delay: 0s; }
+  .chat-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 18px; border-bottom: 1px solid var(--color-border-default); }
+  .chat-header h2 { margin: 0; font-size: 15px; font-weight: 600; line-height: 22px; letter-spacing: -0.02em; }
+  .chat-header p { margin: 3px 0 0; font-family: 'Geist Mono', monospace; color: var(--color-foreground-muted); font-size: 10px; line-height: 16px; }
+  .chat-close { width: 30px; height: 30px; border: 0; border-radius: 3px; background: transparent; color: var(--color-foreground-secondary); }
+  .chat-close:hover { background: var(--color-background-primary); color: var(--color-foreground-primary); }
+  .chat-conversation { display: flex; flex: 1; min-height: 0; flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--color-border-strong) transparent; }
+  .chat-conversation :global(.chat-message) { flex: 0 0 auto; max-width: 90%; margin: 0; color: var(--color-foreground-secondary); font-size: 13px; line-height: 21px; overflow-wrap: anywhere; white-space: pre-wrap; }
+  .chat-conversation :global(.chat-message-user) { align-self: flex-end; padding: 9px 12px; border: 1px solid var(--color-border-default); border-radius: 3px; background: var(--color-background-primary); color: var(--color-foreground-primary); }
+  .chat-form { padding: 14px 18px 12px; border-top: 1px solid var(--color-border-default); }
+  .chat-composer { display: flex; align-items: center; gap: 10px; }
+  input { width: 100%; min-width: 0; height: 36px; padding: 0 2px; border: 0; border-radius: 2px; background: transparent; color: var(--color-foreground-primary); font-size: 16px; }
+  input::placeholder { color: var(--color-foreground-muted); opacity: 1; }
+  .chat-send { flex: 0 0 32px; width: 32px; height: 32px; border: 1px solid var(--color-border-default); border-radius: 3px; background: var(--color-background-inverse); color: var(--color-foreground-inverse); }
+  .chat-send:hover:not(:disabled) { background: var(--color-interactive-hover); }
+  .chat-send:disabled { background: transparent; color: var(--color-foreground-muted); cursor: default; }
+  .chat-note { margin: 8px 0 0; color: var(--color-foreground-muted); font-family: 'Geist Mono', monospace; font-size: 9px; line-height: 16px; }
+  @media (max-width: 560px) {
+    .portfolio-chat { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); width: min(352px, calc(100% - max(16px, env(safe-area-inset-left)) - max(16px, env(safe-area-inset-right)))); }
+    .chat-panel { height: min(420px, calc(100dvh - 96px)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chat-panel, button { transition: none; }
+  }
+</style>
