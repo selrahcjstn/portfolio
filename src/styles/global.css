@@ -279,18 +279,18 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
 .tech-stack-group li { display: inline-flex; align-items: center; gap: 8px; color: var(--color-foreground-secondary); font-size: 13px; line-height: 22px; }
 .tech-stack-group .devicon { width: 20px; flex: 0 0 20px; color: var(--color-foreground-primary); font-size: 20px; text-align: center; opacity: 0.45; }
 /* Brand colors from the installed Devicon stylesheet's .colored variants. */
-:is(.tech-stack-group, .education-item, .project-item) .devicon-javascript-plain { --tech-icon-color: #f0db4f; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-react-plain, :is(.tech-stack-group, .education-item, .project-item) .devicon-reactnative-original { --tech-icon-color: #61dafb; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-vuejs-plain { --tech-icon-color: #41b883; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-dotnetcore-plain { --tech-icon-color: #623697; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-python-plain { --tech-icon-color: #ffd845; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-php-plain { --tech-icon-color: #777bb3; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-java-plain { --tech-icon-color: #ea2d2e; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-supabase-plain { --tech-icon-color: #3ecf8e; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-firebase-plain { --tech-icon-color: #ffa000; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-unity-plain { --tech-icon-color: #4d4d4d; }
-:is(.tech-stack-group, .education-item, .project-item) .devicon-csharp-plain { --tech-icon-color: #68217a; }
-:is(.education-item, .project-item) .devicon-c-plain { --tech-icon-color: #a9bacd; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-javascript-plain { --tech-icon-color: #f0db4f; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-react-plain, :is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-reactnative-original { --tech-icon-color: #61dafb; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-vuejs-plain { --tech-icon-color: #41b883; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-dotnetcore-plain { --tech-icon-color: #623697; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-python-plain { --tech-icon-color: #ffd845; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-php-plain { --tech-icon-color: #777bb3; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-java-plain { --tech-icon-color: #ea2d2e; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-supabase-plain { --tech-icon-color: #3ecf8e; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-firebase-plain { --tech-icon-color: #ffa000; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-unity-plain { --tech-icon-color: #4d4d4d; }
+:is(.tech-stack-group, .education-item, .project-item, .experience-entry) .devicon-csharp-plain { --tech-icon-color: #68217a; }
+:is(.education-item, .project-item, .experience-entry) .devicon-c-plain { --tech-icon-color: #a9bacd; }
 
 @media (hover: hover) and (pointer: fine) {
   .tech-stack-group { transition: border-color 240ms ease; }
@@ -306,10 +306,10 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
   .tech-stack-group:hover .devicon { color: var(--tech-icon-color, var(--color-foreground-primary)); opacity: 1; }
 }
 .education-list { display: flex; margin-top: 32px; flex-direction: column; gap: 20px; }
-.education-item { display: grid; grid-template-columns: 126px minmax(0, 1fr); gap: 24px; padding-block: 8px; }
+.education-item { display: grid; grid-template-columns: 126px minmax(0, 1fr); gap: 24px; padding-block: 8px; cursor: pointer; }
 .period { padding-top: 3px; color: var(--color-foreground-muted); font-family: 'Geist Mono', monospace; font-size: 11px; line-height: 20px; }
 
-.education-details h3, .project-details h3 {
+.education-details h3, .project-details .project-title-heading {
   display: flex;
   align-items: center;
   color: var(--color-foreground-primary);
@@ -318,10 +318,10 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
   line-height: 21px;
 }
 .education-details, .project-details { min-width: 0; }
-.education-details h3, .project-details h3 { line-height: 25px; }
-.education-details h3 svg, .project-details h3 svg { flex: 0 0 auto; margin-left: 4px; }
+.education-details h3, .project-details .project-title-heading { line-height: 25px; }
+.education-details h3 svg, .project-details .project-title-heading svg { flex: 0 0 auto; margin-left: 4px; }
 .education-details > p, .project-details > p { margin-top: 8px; color: var(--color-foreground-secondary); font-size: 15px; line-height: 26px; }
-.education-details h3, .project-details h3 { color: var(--color-foreground-primary); }
+.education-details h3, .project-details .project-title-heading { color: var(--color-foreground-primary); }
 .education-details h3 { font-size: 18px; line-height: 26px; }
 .education-details > .education-qualification { margin-top: 6px; font-size: 14px; line-height: 22px; }
 .education-details > .education-description, .project-details > p { color: var(--color-foreground-secondary); }
@@ -348,32 +348,21 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
 :is(.education-item, .project-item) .tag-list .devicon { color: var(--color-foreground-secondary); opacity: 1; }
 
 .education-item { position: relative; isolation: isolate; }
-.education-item::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0 -12px;
-  background: var(--color-background-primary);
-  content: '';
-  opacity: 0;
-  pointer-events: none;
-}
 .education-item > * { position: relative; z-index: 1; }
 
 @media (hover: hover) and (pointer: fine) {
-  .education-details h3 svg, .project-title-row h3 svg, .text-link svg { transition: transform 240ms cubic-bezier(0.2, 0.75, 0.25, 1); }
+  .education-details h3 svg, .project-title-heading > svg, .text-link svg { transition: transform 240ms cubic-bezier(0.2, 0.75, 0.25, 1); }
   .project-icon-link { transition: color 220ms ease, transform 220ms cubic-bezier(0.2, 0.75, 0.25, 1); }
   .project-icon-link::after { transition: opacity 180ms ease, transform 180ms ease; }
-  .education-item::before { transition: opacity 240ms ease; }
   :is(.education-item, .project-item) .tag-list li { transition: border-color 240ms ease, background-color 240ms ease; transition-delay: var(--tag-delay, 0ms); }
   :is(.education-item, .project-item) .tag-list .devicon { transition: color 240ms ease, opacity 240ms ease; transition-delay: var(--tag-delay, 0ms); }
   :is(.education-item, .project-item) .tag-list li:nth-child(2) { --tag-delay: 50ms; }
   :is(.education-item, .project-item) .tag-list li:nth-child(3) { --tag-delay: 100ms; }
   :is(.education-item, .project-item) .tag-list li:nth-child(4) { --tag-delay: 150ms; }
   :is(.education-item, .project-item) .tag-list li:nth-child(5) { --tag-delay: 200ms; }
-  .education-item:hover::before, .education-item:focus-within::before { opacity: 1; }
   .education-item:hover h3 svg { transform: translate(3px, -3px); }
   .project-icon-link:hover, .project-icon-link:focus-visible { color: var(--color-foreground-primary); transform: translateY(-2px); }
-  .project-item:hover .project-title-row h3 svg { transform: translate(3px, -3px); }
+  .project-item:hover .project-title-heading > svg { transform: translate(3px, -3px); }
   .project-icon-link:hover::after, .project-icon-link:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
   .project-item:hover .project-image img { filter: grayscale(0); transform: scale(1.02); }
   .education-item:hover .tag-list li { border-color: var(--color-border-strong); background-color: var(--color-background-primary); }
@@ -387,11 +376,13 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
 
 .text-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 28px; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; line-height: 24px; }
 .project-list { display: flex; margin-top: 32px; flex-direction: column; gap: 28px; }
-.project-item { display: grid; grid-template-columns: 126px minmax(0, 1fr); gap: 24px; padding-block: 8px; }
+.project-item { display: grid; grid-template-columns: 126px minmax(0, 1fr); gap: 24px; padding-block: 8px; cursor: pointer; }
 .project-image { width: 100%; aspect-ratio: 1.7; overflow: hidden; border: 1px solid var(--color-border-default); border-radius: 4px; background: #D9D9D9; }
 .project-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter 260ms ease, transform 260ms cubic-bezier(0.2, 0.75, 0.25, 1); }
 .project-title-row { display: flex; min-width: 0; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 12px; }
-.project-title-row h3 { display: block; min-width: 0; flex: 1 1 auto; }
+.project-title-row .project-title-heading { display: flex; min-width: 0; flex: 1 1 auto; align-items: center; gap: 4px; }
+.project-title-heading > svg { flex: 0 0 auto; }
+.project-title-text { min-width: 0; flex: 0 1 auto; }
 .project-title-actions { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 10px; margin-left: auto; }
 .project-icon-link { position: relative; display: inline-grid; width: 20px; height: 22px; place-items: center; color: var(--color-foreground-muted); }
 .project-icon-link .devicon { font-size: 18px; }
@@ -582,9 +573,9 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .education-item, .education-details h3 svg, .project-title-row h3 svg, .project-icon-link, .project-icon-link::after, .education-item::before, :is(.education-item, .project-item) .tag-list li, :is(.education-item, .project-item) .tag-list .devicon, .project-image img, .text-link svg, .text-link span::after { transition: none; transition-delay: 0s; }
+  .education-item, .education-details h3 svg, .project-title-heading > svg, .project-icon-link, .project-icon-link::after, :is(.education-item, .project-item) .tag-list li, :is(.education-item, .project-item) .tag-list .devicon, .project-image img, .text-link svg, .text-link span::after { transition: none; transition-delay: 0s; }
   .project-icon-link:hover, .project-icon-link:focus-visible { transform: none; }
-  .project-item:hover .project-title-row h3 svg { transform: none; }
+  .project-item:hover .project-title-heading > svg { transform: none; }
   .education-item:hover h3 svg, .text-link:hover svg, .text-link:focus-visible svg { transform: none; }
   .tech-stack-group, .tech-stack-group h3, .tech-stack-group ul, .tech-stack-group .devicon { transition: none; transition-delay: 0s; }
   .tech-stack-group:hover ul { transform: none; }

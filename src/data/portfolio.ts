@@ -1,4 +1,4 @@
-import type { EducationEntry, NavigationSection, PortfolioEntry, ProjectEntry } from '../types/portfolio';
+import type { NavigationSection, ProjectEntry } from '../types/portfolio';
 
 export const profile = {
   name: 'Charles Justine Mantes',
@@ -65,23 +65,6 @@ export const navigation: NavigationSection[] = [
   { id: 'projects', label: 'Projects', number: '04' },
   { id: 'github-contributions', label: 'Contributions', number: '05' },
   { id: 'contact', label: 'Contact', number: '06' },
-];
-
-export const education: EducationEntry[] = [
-  {
-    period: '2023 — PRESENT',
-    title: 'Bulacan State University',
-    qualification: 'Bachelor of Science in Information Technology',
-    description: 'Fourth-year BSIT student applying programming and software development skills through academic projects.',
-    tags: ['JAVA', 'JAVASCRIPT', 'UNITY', 'REACT.JS', 'PHP'],
-  },
-  {
-    period: '2021 — 2023',
-    title: 'La Consolacion University Philippines',
-    qualification: 'Information and Communications Technology (ICT)',
-    description: 'Built a foundation in C, Java, C#, computer technology, and introductory robotics through hands-on projects.',
-    tags: ['JAVA', 'C', 'C#'],
-  },
 ];
 
 export const projects: ProjectEntry[] = [

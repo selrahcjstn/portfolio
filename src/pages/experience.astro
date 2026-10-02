@@ -1,0 +1,75 @@
+---
+import { ArrowUpRightIcon } from '@lucide/astro';
+import PageLayout from '../layout/PageLayout.astro';
+import PageBackLink from '../components/ui/PageBackLink.astro';
+import TechnologyTags from '../components/ui/TechnologyTags.astro';
+import { experience } from '../data/experience';
+import { profile } from '../data/portfolio';
+
+const description = "A timeline of my academic background, work experience, achievements, and the technologies I've worked with along the way.";
+---
+
+<PageLayout title={`Experience & Education · ${profile.name}`} description={description}>
+  <PageBackLink href="/#education" />
+  <header class="experience-intro">
+    <p class="experience-eyebrow">EXPERIENCE</p>
+    <h1>Where I learned and grew.</h1>
+    <p class="experience-summary">{description}</p>
+  </header>
+
+  <ol class="experience-timeline" aria-label="Experience and education, newest first">
+    {experience.map((entry) => (
+      <li class="experience-entry">
+        <p class="experience-date">{entry.period}</p>
+        <div class="experience-details">
+          {entry.type && <p class="experience-type">{entry.type}</p>}
+          <h2>
+            {entry.url ? (
+              <a href={entry.url} target="_blank" rel="noopener noreferrer" aria-label={`${entry.title} (opens in a new tab)`}>
+                <span>{entry.title}</span><ArrowUpRightIcon size={17} strokeWidth={1.6} aria-hidden="true" />
+              </a>
+            ) : entry.title}
+          </h2>
+          <p class="experience-role">{entry.qualification}</p>
+          <p class="experience-description">{entry.description}</p>
+          {entry.tags.length > 0 && <TechnologyTags tags={entry.tags} label={`${entry.title} technologies`} />}
+        </div>
+      </li>
+    ))}
+  </ol>
+</PageLayout>
+
+<style>
+  .experience-intro { max-width: 780px; }
+  .experience-eyebrow { color: var(--color-foreground-secondary); font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; line-height: 20px; letter-spacing: 0.06em; }
+  h1 { margin-top: 18px; color: var(--color-foreground-primary); font-size: clamp(32px, 4.2vw, 52px); font-weight: 600; line-height: 1.12; letter-spacing: -0.045em; }
+  .experience-summary { max-width: 680px; margin-top: 22px; color: var(--color-foreground-secondary); font-size: 17px; line-height: 1.75; }
+  .experience-timeline { padding: 0; margin: 64px 0 0; list-style: none; }
+  .experience-entry { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 48px; padding-block: 36px; border-top: 1px solid var(--color-border-default); }
+  .experience-entry:last-child { border-bottom: 1px solid var(--color-border-default); }
+  .experience-date { color: var(--color-foreground-muted); font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500; line-height: 20px; }
+  .experience-details { min-width: 0; }
+  .experience-type { margin-bottom: 12px; color: var(--color-foreground-muted); font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 500; line-height: 18px; letter-spacing: 0.06em; }
+  h2 { color: var(--color-foreground-primary); font-size: clamp(20px, 2vw, 24px); font-weight: 600; line-height: 1.35; letter-spacing: -0.025em; }
+  h2 a { display: inline-flex; align-items: center; gap: 6px; }
+  h2 a :global(svg) { flex-shrink: 0; transition: transform 240ms ease; }
+  h2 a:focus-visible { outline: 2px solid var(--color-foreground-primary); outline-offset: 4px; }
+  h2 a:focus-visible :global(svg) { transform: translate(3px, -3px); }
+  .experience-role { margin-top: 8px; color: var(--color-foreground-secondary); font-size: 16px; font-weight: 500; line-height: 1.6; }
+  .experience-description { max-width: 680px; margin-top: 14px; color: var(--color-foreground-secondary); font-size: 15px; line-height: 1.75; }
+  .experience-entry :global(.tag-list) { margin-top: 20px; }
+  .experience-entry :global(.devicon) { color: var(--color-foreground-secondary); transition: color 240ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .experience-entry:hover :global(.devicon) { color: var(--tech-icon-color, var(--color-foreground-secondary)); }
+    .experience-entry:hover h2 a :global(svg) { transform: translate(3px, -3px); }
+  }
+  @media (max-width: 700px) {
+    .experience-summary { font-size: 16px; }
+    .experience-timeline { margin-top: 40px; }
+    .experience-entry { grid-template-columns: 1fr; gap: 14px; padding-block: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h2 a :global(svg), .experience-entry :global(.devicon) { transition: none; }
+    .experience-entry:hover h2 a :global(svg), h2 a:focus-visible :global(svg) { transform: none; }
+  }
+</style>

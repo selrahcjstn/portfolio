@@ -1,0 +1,53 @@
+---
+import { ArrowUpRightIcon, EyeIcon } from '@lucide/astro';
+import TechnologyTags from './TechnologyTags.astro';
+import type { ProjectEntry } from '../../types/portfolio';
+
+interface Props {
+  projects: ProjectEntry[];
+  fullWidth?: boolean;
+}
+
+const { projects, fullWidth = false } = Astro.props;
+const Heading = fullWidth ? 'h2' : 'h3';
+---
+
+<div class:list={['project-list', { 'project-list-full': fullWidth }]}>
+  {projects.map((project) => (
+    <article class="project-item">
+      <div class="project-media">
+        <div class="project-image" aria-hidden="true"></div>
+      </div>
+      <div class="project-details">
+        <div class="project-title-row">
+          <Heading class="project-title-heading"><span class="project-title-text">{project.title}</span><ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></Heading>
+          {(project.githubUrl || project.liveDemoUrl) && (
+            <div class="project-title-actions" role="group" aria-label={`${project.title} links`}>
+              {project.githubUrl && <a class="project-icon-link" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} on GitHub`} data-tooltip="GitHub"><i class="devicon devicon-github-plain" aria-hidden="true"></i></a>}
+              {project.liveDemoUrl && <a class="project-icon-link" href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} live demo`} data-tooltip="Live Demo"><EyeIcon size={18} strokeWidth={1.7} aria-hidden="true" /></a>}
+            </div>
+          )}
+        </div>
+        <p>{project.description}</p>
+        <TechnologyTags tags={project.tags} label={`${project.title} technologies`} />
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .project-list-full { margin-top: 64px; gap: 0; }
+  .project-list-full .project-item { grid-template-columns: 240px minmax(0, 1fr); gap: 40px; padding-block: 36px; border-top: 1px solid var(--color-border-default); }
+  .project-list-full .project-item:last-child { border-bottom: 1px solid var(--color-border-default); }
+  .project-list-full .project-image { width: 100%; }
+  .project-list-full .project-title-heading { margin: 0; font-size: clamp(20px, 2vw, 24px); line-height: 1.35; letter-spacing: -0.025em; }
+  .project-list-full .project-details > p { max-width: 680px; margin-top: 14px; }
+  @media (max-width: 850px) {
+    .project-list-full .project-item { grid-template-columns: 180px minmax(0, 1fr); gap: 24px; }
+  }
+  @media (max-width: 700px) {
+    .project-list-full { margin-top: 40px; }
+    .project-list-full .project-item { grid-template-columns: 1fr; gap: 20px; padding-block: 28px; }
+    .project-list-full .project-image { max-width: 360px; }
+  }
+</style>

@@ -9,6 +9,11 @@ export interface EducationEntry extends PortfolioEntry {
   qualification: string;
 }
 
+export interface ExperienceEntry extends EducationEntry {
+  type?: 'WORK' | 'EDUCATION' | 'AWARD' | 'ACTIVITY';
+  url?: string;
+}
+
 export interface ProjectEntry extends PortfolioEntry {
   githubUrl?: string;
   liveDemoUrl?: string;

@@ -2,10 +2,11 @@
 import { ArrowUpRightIcon, MoonIcon, SunIcon } from '@lucide/astro';
 import PageMenu from '../interactive/PageMenu.astro';
 import { blogUrl, profile, socialLinks } from '../../data/portfolio';
+const homeHref = Astro.url.pathname === '/' ? '#about' : '/#about';
 ---
 
 <header class="site-header">
-  <a class="brand" href="#about" aria-label={`${profile.name}, home`}>{profile.initials}</a>
+  <a class="brand" href={homeHref} aria-label={`${profile.name}, home`}>{profile.initials}</a>
   <nav class="header-actions" aria-label="Primary navigation">
     {blogUrl
       ? <a class="header-blog-link" href={blogUrl} aria-label="Visit blog">BLOG</a>

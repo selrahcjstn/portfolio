@@ -30,6 +30,19 @@ const {
       (() => {
         const root = document.documentElement;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const navigationEntry = performance.getEntriesByType('navigation')[0];
+        const isHistoryReturn = navigationEntry?.type === 'back_forward';
+        const isReturnFromDetailPage = navigationEntry?.type === 'navigate'
+          && window.location.pathname === '/'
+          && document.referrer
+          && (() => {
+            try {
+              const referrer = new URL(document.referrer);
+              return referrer.origin === window.location.origin && ['/experience', '/experience/', '/projects', '/projects/'].includes(referrer.pathname);
+            } catch {
+              return false;
+            }
+          })();
         let shell = null;
         let safetyTimer = 0;
 
@@ -40,7 +53,7 @@ const {
         };
 
         try {
-          if (prefersReducedMotion) return;
+          if (prefersReducedMotion || isHistoryReturn || isReturnFromDetailPage) return;
 
           root.classList.add('intro-playing');
           // Keep a long failsafe for a stalled document; the real timer starts

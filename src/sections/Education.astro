@@ -2,7 +2,7 @@
 import { ArrowUpRightIcon } from '@lucide/astro';
 import TechnologyTags from '../components/ui/TechnologyTags.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
-import { education } from '../data/portfolio';
+import { education } from '../data/experience';
 ---
 
 <section class="education-section" id="education" aria-labelledby="education-heading">
@@ -20,5 +20,5 @@ import { education } from '../data/portfolio';
       </article>
     ))}
   </div>
-  <a class="text-link" href="#projects"><span>View All Experiences</span><ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></a>
+  <a class="text-link" href="/experience"><span>View All Experience</span><ArrowUpRightIcon size={16} strokeWidth={1.6} aria-hidden="true" /></a>
 </section>
