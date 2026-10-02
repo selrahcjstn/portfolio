@@ -192,7 +192,7 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
   grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
 }
 
-.profile-panel { position: sticky; top: 0; align-self: start; min-width: 0; padding: 132px 40px 32px clamp(64px, 11vw, 205px); }
+.profile-panel { position: sticky; top: 0; align-self: start; display: flex; min-width: 0; min-height: 100svh; flex-direction: column; padding: 132px 40px 28px clamp(64px, 11vw, 205px); }
 .profile-copy h1, .profile-copy p, .section-label, .about-copy p, .education-item p, .education-item h3, .project-item p, .project-item h3, .email-heading h3 { margin: 0; }
 .profile-copy h1 { font-size: clamp(36px, 3vw, 44px); font-weight: 600; line-height: 1.12; letter-spacing: -0.045em; text-wrap: balance; }
 .role { margin-top: 8px !important; color: var(--color-foreground-secondary); font-size: 22px; font-weight: 500; line-height: 29px; letter-spacing: -0.02em; white-space: nowrap; }
@@ -235,7 +235,7 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
 .nav-rule { display: block; width: 32px; height: 1px; flex-shrink: 0; background: currentColor; transition: width 240ms ease, background-color 200ms ease; }
 .section-nav-item.active .nav-rule, .section-nav-item:focus-visible .nav-rule { width: 64px; }
 .section-nav-item:hover:not(.active) .nav-rule { width: 48px; }
-.social-links { position: fixed; z-index: 2; bottom: 28px; left: clamp(64px, 11vw, 205px); display: flex; align-items: center; gap: 14px; color: var(--color-foreground-secondary); }
+.social-links { display: flex; align-items: center; gap: 14px; margin-top: auto; padding-top: 32px; color: var(--color-foreground-secondary); }
 .social-links a, .social-links .social-link-placeholder { display: grid; width: 32px; height: 32px; place-items: center; }
 .social-links a { transition: color 180ms ease; }
 .social-links .social-link-placeholder { color: inherit; }
@@ -435,26 +435,17 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
   transition: background-color 180ms ease;
 }
 
-.email-option { width: 100%; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--color-border-default); }
-.email-label { margin: 0; color: var(--color-foreground-secondary); font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 500; line-height: 18px; letter-spacing: 0.02em; }
-.email-card { display: flex; width: 100%; min-height: 52px; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 12px; border: 1px solid var(--color-border-default); border-radius: 4px; background: var(--color-background-primary); font-size: 13px; line-height: 20px; }
-.email-card > svg { flex-shrink: 0; color: var(--color-foreground-secondary); }
-.email-card > a { min-width: 0; flex: 1; overflow-wrap: anywhere; }
-.email-card > a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.copy-button { display: flex; min-width: 64px; height: 32px; flex-shrink: 0; align-items: center; justify-content: center; gap: 6px; padding: 0 8px; border: 1px solid var(--color-border-default); border-radius: 4px; background: var(--color-background-pure); color: var(--color-foreground-secondary); font-size: 11px; cursor: pointer; transition: border-color 180ms ease, color 180ms ease; }
-.copy-button:hover { color: var(--color-foreground-primary); border-color: var(--color-border-strong); }
 .portfolio-credit { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--color-border-default); }
 .portfolio-credit p { max-width: 480px; margin: 0; color: var(--color-foreground-muted); font-size: 12px; line-height: 22px; }
 .contact-form > button:hover { background: var(--color-interactive-hover); }
 .social-links a:hover { color: var(--color-foreground-primary); }
 
 .outline-action:hover, .outline-action:focus-visible, .section-nav-item:hover, .section-nav-item:focus-visible, .text-link:hover, .text-link:focus-visible { color: var(--color-foreground-primary); }
-.outline-action:focus-visible, .menu-action:focus-visible, .menu-close:focus-visible, .menu-overlay-link:focus-visible, .section-nav-item:focus-visible, .social-links a:focus-visible, .text-link:focus-visible, .copy-button:focus-visible, .contact-form button:focus-visible, .contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: 2px solid var(--color-foreground-primary); outline-offset: 3px; }
+.outline-action:focus-visible, .menu-action:focus-visible, .menu-close:focus-visible, .menu-overlay-link:focus-visible, .section-nav-item:focus-visible, .social-links a:focus-visible, .text-link:focus-visible, .contact-form button:focus-visible, .contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: 2px solid var(--color-foreground-primary); outline-offset: 3px; }
 
 @media (max-width: 1120px) {
   .site-header { padding-right: 48px; padding-left: clamp(32px, 8vw, 72px); }
   .profile-panel { padding: 132px 32px 32px clamp(32px, 8vw, 72px); }
-  .social-links { left: clamp(32px, 8vw, 72px); }
   .content-inner { width: calc(100% - 72px); margin-left: 24px; }
   .profile-copy h1 { white-space: normal; }
   .education-item, .project-item { grid-template-columns: 1fr; gap: 12px; }
@@ -490,10 +481,10 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
   .menu-overlay-link { font-size: clamp(2.5rem, 11vw, 3.75rem); }
   .resume-action { min-height: 30px; padding-inline: 9px; }
   .portfolio-columns { display: block; width: auto; height: auto; padding: 48px 24px 80px; }
-  .profile-panel { position: static; max-height: none; overflow: visible; padding: 0; }
+  .profile-panel { position: static; min-height: 0; max-height: none; overflow: visible; padding: 0; }
   .profile-copy h1 { font-size: clamp(32px, 8.5vw, 38px); line-height: 1.12; }
-  .content-inner, .contact-form, .email-option, .email-card { width: 100%; }
-  .social-links { position: static; margin-top: 48px; }
+  .content-inner, .contact-form { width: 100%; }
+  .social-links { margin-top: 48px; padding-top: 0; }
   .content-inner { width: min(100%, 680px); margin-left: 0; padding-top: 72px; padding-bottom: 0; }
   .content-inner > section ~ section { margin-top: 88px; }
   html { scroll-padding-top: 24px; }
@@ -513,12 +504,11 @@ html.intro-playing .portfolio-shell { opacity: 0; transform: translateY(8px); tr
   .education-resume { margin-left: 0; }
   .project-image { width: min(100%, 240px); }
   .form-row { grid-template-columns: 1fr; }
-  .email-card { font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html, .content-panel { scroll-behavior: auto; }
   .intro-screen, .intro-greeting, .portfolio-shell { transition: none; }
-  .site-header, .site-header.is-hidden, .section-nav-item, .nav-rule, .social-links a, .outline-action, .theme-toggle, .inquiry-trigger, .inquiry-trigger > svg, .contact-form input, .contact-form textarea, .contact-form > button, .copy-button, .profile-resume-link, .profile-resume-link::after, .profile-resume-link > svg { transition: none; }
+  .site-header, .site-header.is-hidden, .section-nav-item, .nav-rule, .social-links a, .outline-action, .theme-toggle, .inquiry-trigger, .inquiry-trigger > svg, .contact-form input, .contact-form textarea, .contact-form > button, .profile-resume-link, .profile-resume-link::after, .profile-resume-link > svg { transition: none; }
   .menu-overlay, .menu-overlay-link { transition: none; animation: none; }
 }
